@@ -284,6 +284,7 @@ class SimpleTrainer(TrainerBase):
         # create a thread pool that can execute non critical logic in run_step asynchronically
         # use only 1 worker so tasks will be executred in order of submitting.
         self.concurrent_executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        self.loss = 0
 
     def run_step(self):
         """
@@ -308,6 +309,9 @@ class SimpleTrainer(TrainerBase):
         If you want to do something with the losses, you can wrap the model.
         """
         loss_dict = self.model(data)
+        losses = sum(loss_dict.values())
+        self.loss = losses
+
         if isinstance(loss_dict, torch.Tensor):
             losses = loss_dict
             loss_dict = {"total_loss": loss_dict}

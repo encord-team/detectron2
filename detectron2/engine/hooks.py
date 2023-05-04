@@ -34,7 +34,7 @@ __all__ = [
     "PeriodicCheckpointer",
     "BestCheckpointer",
     "LRScheduler",
-    "AutogradProfiler",
+#    "AutogradProfiler",
     "EvalHook",
     "PreciseBN",
     "TorchProfiler",
